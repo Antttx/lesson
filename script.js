@@ -1,5 +1,14 @@
-let money = +prompt("Ваш бюджет на месяц?"),
+let money, time;
+
+function start(){
+	while( isNaN(money) || money == '' || money == null ){
+		money = +prompt("Ваш бюджет на месяц?");
+	}
+
 	time = prompt("Введите дату в формате YYYY-MM-DD");
+}
+
+start();
 
 let obj = {
 	budget: money,
@@ -10,21 +19,24 @@ let obj = {
 	savings: false
 };
 
-for (let i = 0; i < 2; i++) {
-	let a = prompt("Введите обязательную статью расходов в этом месяце", ""),
-		b = prompt("Во сколько обойдется?", "");
+function chooseExpenses(){
+	for (let i = 0; i < 2; i++) {
+		let a = prompt("Введите обязательную статью расходов в этом месяце", "");
+			b = prompt("Во сколько обойдется?", "");
 
-	if( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null && a != '' && b != '' && a.length < 50 && b.length < 50 ) {
-		console.log('done');
-		obj.expenses[a] = b;
-	} else {
-		console.log('Ещё раз');
-		i--;
+		if( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null && a != '' && b != '' && a.length < 50 && b.length < 50 ) {
+			obj.expenses[a] = b;
+		} else {
+			console.log('Ещё раз');
+			i--;
+		}
 	}
 }
 
+chooseExpenses();
+
 obj.moneyPerDay = obj.budget / 30;
-console.log("Ежедневный бюджет: " + obj.moneyPerDay);
+console.log("Ежедневный бюджет: " + obj.moneyPerDay.toFixed(2));
 
 if (obj.moneyPerDay < 100){
 	console.log("Минимальный уровень достатка");
@@ -34,4 +46,17 @@ if (obj.moneyPerDay < 100){
 	console.log("Хороший уровень достатка");
 } else {
 	console.log("Ошибка данных");
+}
+
+function checkSavings(){
+	let save = +prompt("Какова сумма накопления?"),
+		percent = +prompt('Под какой процент?');
+
+	obj.mathIncome = save / 100 /12 *percent;
+	alert("Доход в месяц в вашева депозита: " + obj.mathIncome.toFixed(2));
+}
+
+obj.savings = confirm('Вы имеете накопление?');
+if (obj.savings == true){
+	checkSavings();
 }
