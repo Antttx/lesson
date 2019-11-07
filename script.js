@@ -48,14 +48,20 @@ let obj = {
 	checkSavings: function(){
 		let save = +prompt("Какова сумма накопления?"),
 		percent = +prompt('Под какой процент?');
+
 		obj.mathIncome = save / 100 /12 *percent;
-		alert("Доход в месяц в вашева депозита: " + obj.mathIncome.toFixed(2));
+		alert("Доход в месяц вашева депозита: " + obj.mathIncome.toFixed(2));
 	},
 	chooseOptExpenses: function(){
 		obj.savings = confirm('Вы имеете накопление?');
 		if (obj.savings == true){
-			checkSavings();
+			obj.checkSavings();
 		}
+	},
+	chooseIncome: function() {
+		let items = prompt('Что принесёт дополнительный доход? (Перечислите через запятую)', '');
+		obj.income = items.split(', ');
+		obj.income.push(prompt("Моджет что-то ещё?"), '');
+		obj.income.sort();
 	}
 };
-
