@@ -47,21 +47,37 @@ let obj = {
 	},
 	checkSavings: function(){
 		let save = +prompt("Какова сумма накопления?"),
-		percent = +prompt('Под какой процент?');
+		percent = +prompt("Под какой процент?");
 
 		obj.mathIncome = save / 100 /12 *percent;
 		alert("Доход в месяц вашева депозита: " + obj.mathIncome.toFixed(2));
 	},
 	chooseOptExpenses: function(){
-		obj.savings = confirm('Вы имеете накопление?');
+		obj.savings = confirm("Вы имеете накопление?");
 		if (obj.savings == true){
 			obj.checkSavings();
 		}
 	},
 	chooseIncome: function() {
-		let items = prompt('Что принесёт дополнительный доход? (Перечислите через запятую)', '');
-		obj.income = items.split(', ');
-		obj.income.push(prompt("Моджет что-то ещё?"), '');
+		let items;
+		while (obj.income.length < 1){
+			items = prompt("Что принесёт дополнительный доход? (Перечислите через запятую)" , "");
+			if (items != "" && (typeof(items)) != null){
+				obj.income = items.split(", ");
+				let temp = prompt("Может что-то ещё?", "");
+				if ((typeof(temp)) != null && temp != ""){
+					obj.income.push(temp);
+				}
+			}
+		}
 		obj.income.sort();
+		obj.income.forEach (function (item){
+			alert("Способы доп. заработка: "+ item);
+		})
 	}
-};
+}
+
+console.log("Наша программа включает в себя данные: ");
+for (let key in obj) {
+	console.log(key);
+}
